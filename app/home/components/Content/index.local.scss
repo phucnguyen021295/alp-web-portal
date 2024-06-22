@@ -1,0 +1,13 @@
+.alp-content {
+        padding: 0 24px !important
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+        .alp-content {
+                padding: 0 !important;
+                .ant-tabs-nav-wrap {
+                        padding-left: 16px;
+                }
+        } 
+}

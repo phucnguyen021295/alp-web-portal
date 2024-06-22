@@ -1,0 +1,40 @@
+@import '../../../../fer-framework/fe-global/assets/fonts/typography.scss';
+
+.alp-header {
+    height: 100%;
+    &-logo {
+        height: 100%;
+        padding-left: 32px;
+        border-bottom: 1px solid var(--color-split);
+        h3 {
+            color: var(--color-info-text);
+        }
+    }
+    &-menu {
+        justify-content: flex-end;
+    }
+
+    &-option {
+        height: 100%;
+        border-bottom: 1px solid var(--color-split);
+        padding-right: 24px;
+    }
+
+    &-fullName {
+        padding: 0 8px;
+        @include Small-Medium()
+    }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .alp-header {
+        &-fullName {
+            display: none;
+        }
+    }
+    
+    .ant-layout-header {
+        padding: 0 16px;
+    }
+}
