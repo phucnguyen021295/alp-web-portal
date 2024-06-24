@@ -8,6 +8,7 @@ import DepositApprovalForm from "@/app/home/components/DepositApprovalForm";
 import DepositSlip from "@/app/home/components/DepositSlip";
 import { useGetListTransactionQuery } from "@/app/home/apis";
 import moment from "moment";
+import { merge } from "lodash";
 
 interface DataType {
     key: string;
@@ -31,12 +32,12 @@ const options: Option[] = [
         label: "Thủ tục duyệt",
         children: [
             {
-                value: "approval-procedures-children",
-                label: "Thủ tục duyệt",
+                value: '2',
+                label: "Duyệt",
             },
             {
-                value: "procedure-not-approved",
-                label: "Thủ tục không duyệt",
+                value: '3',
+                label: "Không duyệt",
             },
         ],
     },
@@ -45,13 +46,9 @@ const options: Option[] = [
         label: "Kế toán duyệt",
         children: [
             {
-                value: "approval-procedures-children",
-                label: "Thủ tục duyệt",
-            },
-            {
-                value: "procedure-not-approved",
-                label: "Thủ tục không duyệt",
-            },
+                value: "4",
+                label: "Đã thu tiền",
+            }
         ],
     },
 ];
@@ -101,13 +98,14 @@ const DepositTable: React.FC<Props> = (props: Props) => {
                     value,
                     selectOptions
                 ) => {
+                    console.log('value', value, selectOptions)
                     if (value.includes("see-details")) {
                         setOpenDetail(true);
                         setItemSelected(record);
                     } else {
                         const option = selectOptions[selectOptions.length - 1];
                         setStatus(option.label);
-                        setItemSelected(record);
+                        setItemSelected(merge(record, {maTT: option.value}));
                         setOpen(true);
                     }
                 };
@@ -234,7 +232,7 @@ const DepositTable: React.FC<Props> = (props: Props) => {
                     status={status}
                     formId={parseInt(params?.formId)}
                     id={item.key}
-                    maTT={item.maTT}
+                    maTT={parseInt(item.maTT)}
                     onClose={() => setOpen(false)}
                     onCancel={() => setOpen(false)}
                 />

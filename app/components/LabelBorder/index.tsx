@@ -20,6 +20,7 @@ const LabelBorder: React.FC<Props> = (props: Props) => {
             {label && <span style={{paddingBottom: 8}}>{label}</span>}
             <Flex align="center" style={style}>
                 {value}
+                {!value && <div style={{height: 24}} />}
             </Flex>
         </Flex>
     );

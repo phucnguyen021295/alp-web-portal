@@ -5,6 +5,7 @@ import { Tabs, Modal, ModalProps, TabsProps } from "antd";
 import Common from '@/app/home/components/TransferForm/components/Common';
 import Customer from '@/app/home/components/TransferForm/components/TransferCustomers';
 import CustomerReceivesTransfer from '@/app/home/components/TransferForm/components/CustomerReceivesTransfer';
+import { useGetDetailTransactionQuery } from "@/app/home/apis";
 
 const onChange = (key: string) => {
     console.log(key);
@@ -30,10 +31,13 @@ const items: TabsProps["items"] = [
 
 interface Props extends ModalProps {
     open: boolean;
+    formid: number;
+    id: number;
 }
 
 const DepositApprovalForm: React.FC<Props> = (props: Props) => {
-    const { open, ...otherProps } = props;
+    const { open, formid, id, ...otherProps } = props;
+    const { data, isLoading } = useGetDetailTransactionQuery({formid, id});
 
     return (
         <Modal

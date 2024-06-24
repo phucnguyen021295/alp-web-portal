@@ -4,6 +4,7 @@ import { Flex, Table, TableProps } from "antd";
 // Components
 import Label from "@/app/home/components/DepositSlip/components/Label";
 import Image from "next/image";
+import formatMoney from "@/app/utils/formatMoney";
 
 interface DataType {
     key: string;
@@ -14,6 +15,7 @@ interface DataType {
     artifacts: number;
     ratio: string;
     money: string;
+    note: string;
 }
 
 const columns: TableProps<DataType>["columns"] = [
@@ -21,13 +23,15 @@ const columns: TableProps<DataType>["columns"] = [
         title: "STT",
         dataIndex: "stt",
         key: "stt",
-        width: 40,
+        width: 50,
+        fixed: 'left',
     },
     {
         title: "Chương trình",
         dataIndex: "programme",
         key: "programme",
         width: 170,
+        fixed: 'left',
     },
     {
         title: "Giá trị tính chiết khấu",
@@ -69,6 +73,7 @@ const columns: TableProps<DataType>["columns"] = [
         dataIndex: "ratio",
         key: "ratio",
         align: "center",
+        render: (_) => _ ? `${_}%` : "",
         width: 70,
     },
     {
@@ -76,7 +81,13 @@ const columns: TableProps<DataType>["columns"] = [
         dataIndex: "money",
         key: "money",
         align: "center",
-        width: 100,
+        width: 150,
+    },
+    {
+        title: "Ghi chú",
+        dataIndex: "note",
+        key: "note",
+        width: 120,
     },
 ];
 
@@ -199,7 +210,8 @@ const SalesPolicy: React.FC<Props> = (props: Props) => {
             accumulated: item.IsLuyKe,
             artifacts: item.IsHienVat,
             ratio: item.TyLe,
-            money: item.SoTien,
+            money: formatMoney(item.SoTien),
+            note: item.GhiChu
         }));
     }, [data]);
 
@@ -216,7 +228,8 @@ const SalesPolicy: React.FC<Props> = (props: Props) => {
             <Table
                 columns={columns}
                 dataSource={_data}
-                scroll={{ x: 800 }}
+                scroll={{ x: 1024 }}
+                pagination={false}
                 style={{ margin: "0 24px" }}
             />
         </Flex>

@@ -53,6 +53,7 @@ const DepositApprovalForm: React.FC<Props> = (props: Props) => {
         ];
         return items;
     }, [data])
+    
     return (
         <Modal
             title="Phiếu đặt cọc"

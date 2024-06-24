@@ -7,12 +7,14 @@ import { EllipsisOutlined } from "@ant-design/icons";
 import ApproveTransferForm from "@/app/home/components/ApproveTransferForm";
 import TransferForm from "@/app/home/components/TransferForm";
 import { useGetListTransactionQuery } from "@/app/home/apis";
+import { merge } from "lodash";
 
 interface DataType {
     key: string;
     name: string;
     code: string;
     customer: string;
+    customer_nhan: string;
     status: number;
     votes: string;
     signDay: string;
@@ -26,11 +28,11 @@ const options: Option[] = [
         label: "Xem chi tiết",
     },
     {
-        value: "approval-procedures",
+        value: "2",
         label: "Duyệt",
     },
     {
-        value: "accountant-approves",
+        value: "3",
         label: "Không duyệt",
     },
 ];
@@ -47,6 +49,7 @@ const _data: DataType[] = [
         name: "KING PALACE",
         code: "A0401",
         customer: "Đinh Văn B",
+        customer_nhan: "Đinh Văn B",
         status: 0,
         votes: "A0401/HĐĐC",
         signDay: "01/04/2024",
@@ -58,6 +61,7 @@ const _data: DataType[] = [
         name: "KING PALACE",
         code: "A0401",
         customer: "Trần Công Hậu",
+        customer_nhan: "Đinh Văn B",
         status: 0,
         votes: "A0401/HĐĐC",
         signDay: "01/04/2024",
@@ -69,6 +73,7 @@ const _data: DataType[] = [
         name: "KING PALACE",
         code: "A0401",
         customer: "Trần Công Hậu",
+        customer_nhan: "Đinh Văn B",
         status: 1,
         votes: "A0401/HĐĐC",
         signDay: "01/04/2024",
@@ -80,6 +85,7 @@ const _data: DataType[] = [
         name: "KING PALACE",
         code: "A0401",
         customer: "Trần Công Hậu",
+        customer_nhan: "Đinh Văn B",
         status: 1,
         votes: "A0401/HĐĐC",
         signDay: "01/04/2024",
@@ -91,6 +97,7 @@ const _data: DataType[] = [
         name: "KING PALACE",
         code: "A0401",
         customer: "Trần Công Hậu",
+        customer_nhan: "Đinh Văn B",
         status: 1,
         votes: "A0401/HĐĐC",
         signDay: "01/04/2024",
@@ -102,6 +109,7 @@ const _data: DataType[] = [
         name: "KING PALACE",
         code: "A0401",
         customer: "Trần Công Hậu",
+        customer_nhan: "Đinh Văn B",
         status: 0,
         votes: "A0401/HĐĐC",
         signDay: "01/04/2024",
@@ -113,6 +121,7 @@ const _data: DataType[] = [
         name: "KING PALACE",
         code: "A0401",
         customer: "Trần Công Hậu",
+        customer_nhan: "Đinh Văn B",
         status: 1,
         votes: "A0401/HĐĐC",
         signDay: "01/04/2024",
@@ -124,6 +133,7 @@ const _data: DataType[] = [
         name: "KING PALACE",
         code: "A0401",
         customer: "Trần Công Hậu",
+        customer_nhan: "Đinh Văn B",
         status: 1,
         votes: "A0401/HĐĐC",
         signDay: "01/04/2024",
@@ -135,6 +145,7 @@ const _data: DataType[] = [
         name: "KING PALACE",
         code: "A0401",
         customer: "Trần Công Hậu",
+        customer_nhan: "Đinh Văn B",
         status: 1,
         votes: "A0401/HĐĐC",
         signDay: "01/04/2024",
@@ -146,6 +157,7 @@ const _data: DataType[] = [
         name: "KING PALACE",
         code: "A0401",
         customer: "Trần Công Hậu",
+        customer_nhan: "Đinh Văn B",
         status: 1,
         votes: "A0401/HĐĐC",
         signDay: "01/04/2024",
@@ -157,6 +169,7 @@ const _data: DataType[] = [
         name: "KING PALACE",
         code: "A0401",
         customer: "Trần Công Hậu",
+        customer_nhan: "Đinh Văn B",
         status: 1,
         votes: "A0401/HĐĐC",
         signDay: "01/04/2024",
@@ -168,6 +181,7 @@ const _data: DataType[] = [
         name: "KING PALACE",
         code: "A0401",
         customer: "Trần Công Hậu",
+        customer_nhan: "Đinh Văn B",
         status: 1,
         votes: "A0401/HĐĐC",
         signDay: "01/04/2024",
@@ -179,6 +193,7 @@ const _data: DataType[] = [
         name: "KING PALACE",
         code: "A0401",
         customer: "Trần Công Hậu",
+        customer_nhan: "Đinh Văn B",
         status: 1,
         votes: "A0401/HĐĐC",
         signDay: "01/04/2024",
@@ -190,6 +205,7 @@ const _data: DataType[] = [
         name: "KING PALACE",
         code: "A0401",
         customer: "Trần Công Hậu",
+        customer_nhan: "Đinh Văn B",
         status: 1,
         votes: "A0401/HĐĐC",
         signDay: "01/04/2024",
@@ -201,6 +217,7 @@ const _data: DataType[] = [
         name: "KING PALACE",
         code: "A0401",
         customer: "Trần Công Hậu",
+        customer_nhan: "Đinh Văn B",
         status: 1,
         votes: "A0401/HĐĐC",
         signDay: "01/04/2024",
@@ -210,16 +227,20 @@ const _data: DataType[] = [
 ];
 
 interface Props {
-    params: object
+    params: object;
 }
 
 const DepositTable: React.FC<Props> = (props: Props) => {
-    const {params = {}} = props;
+    const { params = {} } = props;
     const [open, setOpen] = useState(false);
     const [openDetail, setOpenDetail] = useState(false);
     const [status, setStatus] = useState("");
-    const [pagination , setPagination] = useState({current: 1, pageSize: 10});
-    const _params = {...params, ...{pageindex: pagination.current, pagesize: pagination.pageSize}}
+    const [item, setItemSelected] = useState("");
+    const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
+    const _params = {
+        ...params,
+        ...{ pageindex: pagination.current, pagesize: pagination.pageSize },
+    };
     const { data, isLoading } = useGetListTransactionQuery(_params);
 
     const columns: TableProps<DataType>["columns"] = [
@@ -239,9 +260,11 @@ const DepositTable: React.FC<Props> = (props: Props) => {
                     console.log(value);
                     if (value.includes("see-details")) {
                         setOpenDetail(true);
+                        setItemSelected(record);
                     } else {
                         const option = selectOptions[selectOptions.length - 1];
                         setStatus(option.label);
+                        setItemSelected(merge(record, { maTT: option.value }));
                         setOpen(true);
                     }
                 };
@@ -267,9 +290,14 @@ const DepositTable: React.FC<Props> = (props: Props) => {
             align: "center",
         },
         {
-            title: "Khách hàng",
+            title: "Khách CN",
             dataIndex: "customer",
             key: "customer",
+        },
+        {
+            title: "Khách nhận CN",
+            dataIndex: "customer_nhan",
+            key: "customer_nhan",
         },
         {
             title: "Trạng thái",
@@ -344,17 +372,27 @@ const DepositTable: React.FC<Props> = (props: Props) => {
                         `Hiển thị từ ${range[0]} - ${range[1]} của ${total} mục`,
                 }}
             />
-            <ApproveTransferForm
-                status={status}
-                open={open}
-                onClose={() => setOpen(false)}
-                onCancel={() => setOpen(false)}
-            />
-            <TransferForm
-                open={openDetail}
-                onClose={() => setOpenDetail(false)}
-                onCancel={() => setOpenDetail(false)}
-            />
+            {open && (
+                <ApproveTransferForm
+                    status={status}
+                    open={open}
+                    formId={parseInt(params?.formId)}
+                    id={item.key}
+                    maTT={parseInt(item.maTT)}
+                    onClose={() => setOpen(false)}
+                    onCancel={() => setOpen(false)}
+                />
+            )}
+
+            {openDetail && (
+                <TransferForm
+                    open={openDetail}
+                    formid={params?.formId}
+                    id={item.key}
+                    onClose={() => setOpenDetail(false)}
+                    onCancel={() => setOpenDetail(false)}
+                />
+            )}
         </>
     );
 };

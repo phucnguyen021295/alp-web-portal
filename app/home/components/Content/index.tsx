@@ -82,12 +82,12 @@ const App: React.FC = () => {
                 children: <DepositTable params={params} />,
             },
             {
-                key: "5",
+                key: "32",
                 label: "Chuyển nhượng",
                 children: <TransferTable params={params} />,
             },
             {
-                key: "6",
+                key: "31",
                 label: "Thanh lý",
                 children: <LiquidationTable params={params} />,
             },

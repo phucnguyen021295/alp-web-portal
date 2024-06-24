@@ -6,6 +6,7 @@ import { EllipsisOutlined } from "@ant-design/icons";
 // Components
 import ApproveLiquidationForm from "@/app/home/components/ApproveLiquidationForm";
 import LiquidationForm from "@/app/home/components/LiquidationForm";
+import { merge } from "lodash";
 
 interface DataType {
     key: string;
@@ -29,11 +30,11 @@ const options: Option[] = [
         label: "Xác thực thông tin",
         children: [
             {
-                value: "approval-procedures-children",
+                value: "2",
                 label: "Duyệt",
             },
             {
-                value: "procedure-not-approved",
+                value: "3",
                 label: "Không duyệt",
             },
         ],
@@ -43,11 +44,11 @@ const options: Option[] = [
         label: "Giám đốc ký duyệt",
         children: [
             {
-                value: "approval-procedures-children",
+                value: "6",
                 label: "Duyệt",
             },
             {
-                value: "procedure-not-approved",
+                value: "7",
                 label: "Không duyệt",
             },
         ],
@@ -228,10 +229,16 @@ const data: DataType[] = [
     },
 ];
 
-const DepositTable: React.FC = () => {
+interface Props {
+    params: object;
+}
+
+const DepositTable: React.FC<Props> = (props: Props) => {
+    const { params = {} } = props;
     const [open, setOpen] = useState(false);
     const [openDetail, setOpenDetail] = useState(false);
     const [status, setStatus] = useState("");
+    const [item, setItemSelected] = useState("");
 
     const columns: TableProps<DataType>["columns"] = [
         {
@@ -250,9 +257,11 @@ const DepositTable: React.FC = () => {
                     console.log(value);
                     if (value.includes("see-details")) {
                         setOpenDetail(true);
+                        setItemSelected(record);
                     } else {
                         const option = selectOptions[selectOptions.length - 1];
                         setStatus(option.label);
+                        setItemSelected(merge(record, { maTT: option.value }));
                         setOpen(true);
                     }
                 };
@@ -355,17 +364,26 @@ const DepositTable: React.FC = () => {
                         `Hiển thị từ ${range[0]} - ${range[1]} của ${total} mục`,
                 }}
             />
-            <ApproveLiquidationForm
-                status={status}
-                open={open}
-                onClose={() => setOpen(false)}
-                onCancel={() => setOpen(false)}
-            />
-            <LiquidationForm
-                open={openDetail}
-                onClose={() => setOpenDetail(false)}
-                onCancel={() => setOpenDetail(false)}
-            />
+            {open && (
+                <ApproveLiquidationForm
+                    status={status}
+                    open={open}
+                    formId={parseInt(params?.formId)}
+                    id={item.key}
+                    maTT={parseInt(item.maTT)}
+                    onClose={() => setOpen(false)}
+                    onCancel={() => setOpen(false)}
+                />
+            )}
+            {openDetail && (
+                <LiquidationForm
+                    open={openDetail}
+                    formid={params?.formId}
+                    id={item.key}
+                    onClose={() => setOpenDetail(false)}
+                    onCancel={() => setOpenDetail(false)}
+                />
+            )}
         </>
     );
 };
