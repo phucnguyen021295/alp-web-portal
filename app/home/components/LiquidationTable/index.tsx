@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Button, Cascader, Flex, Table } from "antd";
 import type { CascaderProps, TableProps } from "antd";
 import { EllipsisOutlined } from "@ant-design/icons";
@@ -7,6 +7,8 @@ import { EllipsisOutlined } from "@ant-design/icons";
 import ApproveLiquidationForm from "@/app/home/components/ApproveLiquidationForm";
 import LiquidationForm from "@/app/home/components/LiquidationForm";
 import { merge } from "lodash";
+import { useGetListTransactionQuery } from "@/app/home/apis";
+import moment from "moment";
 
 interface DataType {
     key: string;
@@ -229,22 +231,37 @@ const data: DataType[] = [
     },
 ];
 
+const COLOR = {
+    'Đã thu tiền': "rgba(127, 194, 65, 1)",
+    'Đã duyệt': "rgba(127, 194, 65, 0.9)",
+    'Chờ duyệt': "rgba(255, 214, 10, 1)",
+    'Đã thanh lý': 'rgb(223 91 49)',
+    'Đã xác nhận': 'rgb(12 170 18)'
+}
+
 interface Props {
     params: object;
 }
 
-const DepositTable: React.FC<Props> = (props: Props) => {
+const LiquidationTable: React.FC<Props> = (props: Props) => {
     const { params = {} } = props;
     const [open, setOpen] = useState(false);
     const [openDetail, setOpenDetail] = useState(false);
-    const [status, setStatus] = useState("");
     const [item, setItemSelected] = useState("");
+    const [status, setStatus] = useState("");
+    const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
+    const _params = {
+        ...params,
+        ...{ pageindex: pagination.current, pagesize: pagination.pageSize },
+    };
+    const { data, isLoading } = useGetListTransactionQuery(_params);
 
     const columns: TableProps<DataType>["columns"] = [
         {
             title: "Dự án",
             dataIndex: "name",
             key: "name",
+            width: 200,
         },
         {
             title: "",
@@ -279,54 +296,44 @@ const DepositTable: React.FC<Props> = (props: Props) => {
                     </Cascader>
                 );
             },
+            width: 30,
+            align: "center",
         },
         {
             title: "Mã sản phẩm",
             dataIndex: "code",
             key: "code",
             align: "center",
+            width: 150,
         },
         {
             title: "Khách hàng",
             dataIndex: "customer",
             key: "customer",
+            width: 200,
         },
         {
             title: "Trạng thái",
             dataIndex: "status",
             key: "status",
-            render: (_, record) => {
-                if (record.status === 1) {
-                    return (
-                        <Flex
-                            align="center"
-                            justify="center"
-                            style={{
-                                height: 40,
-                                borderRadius: 20,
-                                backgroundColor: "rgba(127, 194, 65, 0.9)",
-                                color: "#fff",
-                            }}
-                        >
-                            <span>Thủ tục đã duyệt</span>
-                        </Flex>
-                    );
-                }
+            render: (_) => {
                 return (
                     <Flex
                         align="center"
                         justify="center"
                         style={{
-                            height: 40,
-                            borderRadius: 20,
-                            backgroundColor: "rgba(255, 214, 10, 1)",
+                            padding: '4px 8px',
+                            minHeight: 40,
+                            borderRadius: 30,
+                            backgroundColor: COLOR[_] || 'rgb(221 223 49)',
+                            color: "#fff",
                         }}
                     >
-                        <span>Chờ duyệt</span>
+                        <span>{_}</span>
                     </Flex>
                 );
             },
-            width: 180,
+            width: 200,
             align: "center",
         },
         {
@@ -334,35 +341,62 @@ const DepositTable: React.FC<Props> = (props: Props) => {
             dataIndex: "votes",
             key: "votes",
             align: "center",
+            width: 100,
         },
         {
             title: "Ngày ký",
             dataIndex: "signDay",
             key: "signDay",
             align: "center",
+            width: 120,
         },
         {
             title: "Người tạo",
             dataIndex: "creator",
             key: "creator",
+            width: 200,
         },
         {
             title: "Ngày tạo",
             dataIndex: "dateCreated",
             key: "dateCreated",
             align: "center",
+            width: 120,
         },
     ];
+
+    const _data1 = useMemo(() => {
+        if (data?.data) {
+            return data.data.map((item: any) => ({
+                key: item.ID,
+                name: item.TenDA,
+                code: item.KyHieuSP,
+                customer: item.TenKH,
+                status: item.TenTT,
+                votes: item.SoPhieu,
+                signDay: moment(item.NgayKy).format("DD/MM/YYYY"),
+                creator: item.NguoiTao,
+                dateCreated: moment(item.NgayTao).format("DD/MM/YYYY"),
+                maTT: item.MaTT
+            }));
+        }
+        return [];
+    }, [data?.data]);
 
     return (
         <>
             <Table
                 columns={columns}
-                dataSource={data}
+                dataSource={_data1}
                 pagination={{
+                    onChange: (page, pageSize) => {
+                        setPagination({ current: page, pageSize });
+                    },
+                    total: data?.count || 0,
                     showTotal: (total, range) =>
                         `Hiển thị từ ${range[0]} - ${range[1]} của ${total} mục`,
                 }}
+                scroll={{ x: 1250 }}
             />
             {open && (
                 <ApproveLiquidationForm
@@ -388,4 +422,4 @@ const DepositTable: React.FC<Props> = (props: Props) => {
     );
 };
 
-export default DepositTable;
+export default LiquidationTable;

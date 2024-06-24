@@ -137,7 +137,7 @@ const DepositTable: React.FC<Props> = (props: Props) => {
             title: "Khách hàng",
             dataIndex: "customer",
             key: "customer",
-            width: 200,
+            width: 220,
         },
         {
             title: "Trạng thái",
@@ -149,8 +149,9 @@ const DepositTable: React.FC<Props> = (props: Props) => {
                         align="center"
                         justify="center"
                         style={{
-                            height: 40,
-                            borderRadius: 20,
+                            padding: '4px 8px',
+                            minHeight: 40,
+                            borderRadius: 30,
                             backgroundColor: COLOR[_] || 'rgb(221 223 49)',
                             color: "#fff",
                         }}
@@ -159,7 +160,7 @@ const DepositTable: React.FC<Props> = (props: Props) => {
                     </Flex>
                 );
             },
-            width: 200,
+            width: 220,
             align: "center",
         },
         {
@@ -197,7 +198,7 @@ const DepositTable: React.FC<Props> = (props: Props) => {
                 key: item.ID,
                 name: item.TenDA,
                 code: item.KyHieuSP,
-                customer: "Trần Công Hậu",
+                customer: item.TenKH,
                 status: item.TenTT,
                 votes: item.SoPhieu,
                 signDay: moment(item.NgayKy).format("DD/MM/YYYY"),

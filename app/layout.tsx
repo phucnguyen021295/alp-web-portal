@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from "antd";
+import CustomEmpty from '@/app/components/Empty';
 
 import themeConfig from "./themeConfig";
 
@@ -22,7 +23,7 @@ export default function RootLayout({
         <html lang="en">
             <body className={inter.className}>
                 <AntdRegistry>
-                    <ConfigProvider theme={themeConfig}>
+                    <ConfigProvider theme={themeConfig} renderEmpty={CustomEmpty}>
                         <ProviderRedux>{children}</ProviderRedux>
                     </ConfigProvider>
                 </AntdRegistry>

@@ -23,6 +23,8 @@ const Price: React.FC<Props> = (props: Props) => {
                 height: "calc(100vh - 240px)",
                 margin: "0 -24px",
                 overflow: "auto",
+                width: 800
+                
             }}
         >
             <Flex vertical>

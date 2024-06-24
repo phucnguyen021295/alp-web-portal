@@ -24,14 +24,12 @@ const columns: TableProps<DataType>["columns"] = [
         dataIndex: "stt",
         key: "stt",
         width: 50,
-        fixed: 'left',
     },
     {
         title: "Chương trình",
         dataIndex: "programme",
         key: "programme",
         width: 170,
-        fixed: 'left',
     },
     {
         title: "Giá trị tính chiết khấu",

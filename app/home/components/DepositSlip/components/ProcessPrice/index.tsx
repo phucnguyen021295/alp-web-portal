@@ -25,7 +25,6 @@ const columns: TableProps<DataType>["columns"] = [
         key: "batch",
         width: 50,
         align: "center",
-        fixed: 'left',
     },
     {
         title: "Ngày thanh toán",
@@ -33,7 +32,6 @@ const columns: TableProps<DataType>["columns"] = [
         key: "dateOfPayment",
         width: 150,
         align: "center",
-        fixed: 'left',
     },
     {
         title: "Kiểu TT",
