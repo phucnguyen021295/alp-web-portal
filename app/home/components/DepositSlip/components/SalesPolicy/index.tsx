@@ -3,6 +3,7 @@ import { Flex, Table, TableProps } from "antd";
 
 // Components
 import Label from "@/app/home/components/DepositSlip/components/Label";
+import Image from "next/image";
 
 interface DataType {
     key: string;
@@ -20,46 +21,62 @@ const columns: TableProps<DataType>["columns"] = [
         title: "STT",
         dataIndex: "stt",
         key: "stt",
-        width: 40
+        width: 40,
     },
     {
         title: "Chương trình",
         dataIndex: "programme",
         key: "programme",
-        width: 170
+        width: 170,
     },
     {
         title: "Giá trị tính chiết khấu",
         dataIndex: "discountedValue",
         key: "discountedValue",
-        width: 170
+        width: 170,
     },
     {
         title: "Lũy kế",
         dataIndex: "accumulated",
         key: "accumulated",
-        width: 70
+        width: 70,
+        render: (_) => _ ? (
+            <Image
+                src={require("@/public/icon/tick.svg")}
+                height={24}
+                width={24}
+            />
+        ) : null,
+        align: "center",
     },
     {
         title: "Hiện vật",
         dataIndex: "artifacts",
         key: "artifacts",
         align: "center",
-        width: 80
+        width: 80,
+        render: (_) => _ ? (
+            <Image
+                src={require("@/public/icon/tick.svg")}
+                height={24}
+                width={24}
+            />
+        ) : null,
+        align: "center",
     },
     {
         title: "Tỷ lệ",
         dataIndex: "ratio",
         key: "ratio",
         align: "center",
-        width: 70
+        width: 70,
     },
     {
         title: "Số tiền",
         dataIndex: "money",
         key: "money",
         align: "center",
-        width: 100
+        width: 100,
     },
 ];
 
@@ -176,7 +193,7 @@ const SalesPolicy: React.FC<Props> = (props: Props) => {
     const _data = useMemo(() => {
         return data.map((item) => ({
             key: item.ID,
-            stt:  item.STT,
+            stt: item.STT,
             programme: item.TenChuongTrinh,
             discountedValue: item.TenGiaTriCK,
             accumulated: item.IsLuyKe,
