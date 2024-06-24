@@ -244,7 +244,7 @@ const DepositTable: React.FC<Props> = (props: Props) => {
                 <DepositSlip
                     open={openDetail}
                     formid={params?.formId}
-                    id={id}
+                    id={item.key}
                     onClose={() => setOpenDetail(false)}
                     onCancel={() => setOpenDetail(false)}
                 />

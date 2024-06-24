@@ -39,7 +39,7 @@ export const homeApi = baseApi.injectEndpoints({
 
          // Xem chi tiet 1 giao dich
          getDetailTransaction: builder.query({
-            query: (params: { formId: string, id: string }) => ({
+            query: (params: { formId: number, id: number }) => ({
                 url: `/api/giao-dich`,
                 method: "GET",
                 params: params,

@@ -1,8 +1,9 @@
-import React, { memo } from "react";
-import {Flex, Table, TableProps } from "antd";
+import React, { memo, useMemo } from "react";
+import { Flex, Table, TableProps } from "antd";
 
 // Components
-import Label from '@/app/home/components/DepositSlip/components/Label';
+import Label from "@/app/home/components/DepositSlip/components/Label";
+import moment from "moment";
 
 interface DataType {
     key: string;
@@ -15,7 +16,6 @@ interface DataType {
     taxVAT: string;
     pbt: string;
 }
-
 
 const columns: TableProps<DataType>["columns"] = [
     {
@@ -37,7 +37,7 @@ const columns: TableProps<DataType>["columns"] = [
         dataIndex: "typeTT",
         key: "typeTT",
         align: "center",
-        width: 120
+        width: 120,
     },
     {
         title: "Tỷ lệ TT",
@@ -51,21 +51,21 @@ const columns: TableProps<DataType>["columns"] = [
         dataIndex: "corresponding",
         key: "corresponding",
         align: "center",
-        width: 100
+        width: 100,
     },
     {
         title: "Tỷ lệ VAT",
         dataIndex: "ratioVAT",
         key: "ratioVAT",
         align: "center",
-        width: 120
+        width: 120,
     },
     {
         title: "Thuế VAT",
         dataIndex: "taxVAT",
         key: "taxVAT",
         align: "center",
-        width: 100
+        width: 100,
     },
     {
         title: "% PBT",
@@ -82,7 +82,7 @@ const data: DataType[] = [
         batch: "1",
         dateOfPayment: "05/06/2024",
         typeTT: "Giá gồm VAT",
-        ratioTT: '30%',
+        ratioTT: "30%",
         corresponding: "1.500.000.000",
         ratioVAT: "0%",
         taxVAT: "0",
@@ -93,7 +93,7 @@ const data: DataType[] = [
         batch: "2",
         dateOfPayment: "07/06/2024",
         typeTT: "Giá gồm VAT",
-        ratioTT: '30%',
+        ratioTT: "30%",
         corresponding: "1.500.000.000",
         ratioVAT: "0%",
         taxVAT: "0",
@@ -104,7 +104,7 @@ const data: DataType[] = [
         batch: "3",
         dateOfPayment: "08/07/2024",
         typeTT: "Giá gồm VAT",
-        ratioTT: '25%',
+        ratioTT: "25%",
         corresponding: "1.500.000.000",
         ratioVAT: "0%",
         taxVAT: "0",
@@ -115,7 +115,7 @@ const data: DataType[] = [
         batch: "4",
         dateOfPayment: "08/07/2024",
         typeTT: "Giá gồm VAT",
-        ratioTT: '20%',
+        ratioTT: "20%",
         corresponding: "1.500.000.000",
         ratioVAT: "5%",
         taxVAT: "25.000.000",
@@ -126,7 +126,7 @@ const data: DataType[] = [
         batch: "5",
         dateOfPayment: "08/07/2024",
         typeTT: "Giá gồm VAT",
-        ratioTT: '25%',
+        ratioTT: "25%",
         corresponding: "1.500.000.000",
         ratioVAT: "0%",
         taxVAT: "0",
@@ -137,7 +137,7 @@ const data: DataType[] = [
         batch: "6",
         dateOfPayment: "08/07/2024",
         typeTT: "Giá gồm VAT",
-        ratioTT: '30%',
+        ratioTT: "30%",
         corresponding: "1.500.000.000",
         ratioVAT: "0%",
         taxVAT: "0",
@@ -148,7 +148,7 @@ const data: DataType[] = [
         batch: "7",
         dateOfPayment: "08/07/2024",
         typeTT: "Giá gồm VAT",
-        ratioTT: '25%',
+        ratioTT: "25%",
         corresponding: "1.500.000.000",
         ratioVAT: "0%",
         taxVAT: "0",
@@ -159,7 +159,7 @@ const data: DataType[] = [
         batch: "8",
         dateOfPayment: "08/07/2024",
         typeTT: "Giá gồm VAT",
-        ratioTT: '25%',
+        ratioTT: "25%",
         corresponding: "1.500.000.000",
         ratioVAT: "0%",
         taxVAT: "0",
@@ -170,7 +170,7 @@ const data: DataType[] = [
         batch: "9",
         dateOfPayment: "08/07/2024",
         typeTT: "Giá gồm VAT",
-        ratioTT: '25%',
+        ratioTT: "25%",
         corresponding: "1.500.000.000",
         ratioVAT: "0%",
         taxVAT: "0",
@@ -181,22 +181,51 @@ const data: DataType[] = [
         batch: "10",
         dateOfPayment: "08/07/2024",
         typeTT: "Giá gồm VAT",
-        ratioTT: '25%',
+        ratioTT: "25%",
         corresponding: "1.500.000.000",
         ratioVAT: "0%",
         taxVAT: "0",
         pbt: "0%",
-    }
+    },
 ];
 
 interface Props {
+    data: [];
 }
 
 const ProcessPrice: React.FC<Props> = (props: Props) => {
+    const { data } = props;
+
+    const _data = useMemo(() => {
+        return data.map((item) => ({
+            key: item.ID,
+            batch: item.DotTT,
+            dateOfPayment: moment(item.NgayTT).format('DD/MM/YYYY'),
+            typeTT: item.TenKTT,
+            ratioTT: item.TyLeTT,
+            corresponding: item.TuongUng,
+            ratioVAT: item.TyLeVAT,
+            taxVAT: item.ThueVAT,
+            pbt: item.GiamTruTTS,
+        }));
+    }, [data]);
+
     return (
-        <Flex vertical style={{height: 'calc(100vh - 240px)', overflow: 'auto', margin: "0 -24px",}}>
+        <Flex
+            vertical
+            style={{
+                height: "calc(100vh - 240px)",
+                overflow: "auto",
+                margin: "0 -24px",
+            }}
+        >
             <Label label="Thanh toán 5 đợt (30/30/20/25/5)" />
-            <Table columns={columns} dataSource={data} scroll={{x: 800}} style={{margin: "0 24px"}} />
+            <Table
+                columns={columns}
+                dataSource={_data}
+                scroll={{ x: 800 }}
+                style={{ margin: "0 24px" }}
+            />
         </Flex>
     );
 };

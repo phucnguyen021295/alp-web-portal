@@ -3,7 +3,7 @@ import { Flex } from "antd";
 
 const style: CSSProperties = {
     border: "1px solid #d9d9d9",
-    height: 40,
+    minHeight: 40,
     borderRadius: 8,
     padding: "7px 11px",
 };

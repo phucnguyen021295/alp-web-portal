@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Tabs, Modal, ModalProps, TabsProps } from "antd";
 
 // Components
@@ -13,44 +13,46 @@ const onChange = (key: string) => {
     console.log(key);
 };
 
-const items: TabsProps["items"] = [
-    {
-        key: "1",
-        label: "Chung",
-        children: <Common />,
-    },
-    {
-        key: "2",
-        label: "Khách hàng",
-        children: <Customer />,
-    },
-    {
-        key: "3",
-        label: "Giá bán",
-        children: <Price />,
-    },
-    {
-        key: "4",
-        label: "Tiến độ thanh toán",
-        children: <ProcessPrice />,
-    },
-    {
-        key: "5",
-        label: "Chính sách bán hàng",
-        children: <SalesPolicy />,
-    },
-];
-
 interface Props extends ModalProps {
     open: boolean;
-    id: string;
-    formid: string;
+    id: number;
+    formid: number;
 }
 
 const DepositApprovalForm: React.FC<Props> = (props: Props) => {
     const { open, formid, id, ...otherProps } = props;
     const { data, isLoading } = useGetDetailTransactionQuery({formid, id});
 
+    const _items = useMemo(() => {
+        const items: TabsProps["items"] = [
+            {
+                key: "1",
+                label: "Chung",
+                children: <Common data={data?.objGD || {}} />,
+            },
+            {
+                key: "2",
+                label: "Khách hàng",
+                children: <Customer data={data?.objGD || {}} />,
+            },
+            {
+                key: "3",
+                label: "Giá bán",
+                children: <Price data={data?.objGD || {}} />,
+            },
+            {
+                key: "4",
+                label: "Tiến độ thanh toán",
+                children: <ProcessPrice data={data?.LichThanhToan || {}} />,
+            },
+            {
+                key: "5",
+                label: "Chính sách bán hàng",
+                children: <SalesPolicy data={data?.ChinhSachBanHang || []} />,
+            },
+        ];
+        return items;
+    }, [data])
     return (
         <Modal
             title="Phiếu đặt cọc"
@@ -61,7 +63,7 @@ const DepositApprovalForm: React.FC<Props> = (props: Props) => {
             style={{height: 'calc(100vh - 100px)'}}
             {...otherProps}
         >
-            <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+            <Tabs defaultActiveKey="1" items={_items} onChange={onChange} />
         </Modal>
     );
 };
