@@ -19,8 +19,8 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@/fe-base/*": ["./fer-framework/fe-base/*"],
-      "@/fe-global/*": ["./fer-framework/fe-global/*"],
+      "@/fe-base/*": ["./lib/fe-base/*"],
+      "@/fe-global/*": ["./lib/fe-global/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
