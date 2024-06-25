@@ -6,6 +6,7 @@ const style: CSSProperties = {
     minHeight: 40,
     borderRadius: 8,
     padding: "7px 11px",
+    textDecoration: 'none'
 };
 
 interface Props {
