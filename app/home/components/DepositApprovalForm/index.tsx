@@ -21,7 +21,7 @@ const DepositApprovalForm: React.FC<Props> = (props: Props) => {
         if(value.noiDung && value.noiDung.trim()) {
             postApprove({formId, id, maTT, noiDung: value.noiDung}).then((_response) => {
                 if(_response.error) {
-                    message.error(`${_response.error?.data?.Message}[${_response.error?.status}]`);
+                    message.error(`${_response.error?.data?.Message}!.[${_response.error?.status}]`);
                     return
                 }
                 message.info(`${status} thành công!`);
