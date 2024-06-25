@@ -37,6 +37,7 @@ const columns: TableProps<DataType>["columns"] = [
         title: "Ngày sinh",
         dataIndex: "NgaySinh",
         key: "NgaySinh",
+        render: (_) => moment(_).format('DD/MM/YYYY')
     },
     {
         title: "Nơi Sinh",
@@ -52,6 +53,7 @@ const columns: TableProps<DataType>["columns"] = [
         title: "Ngày cấp",
         dataIndex: "NgayCap",
         key: "NgayCap",
+        render: (_) => moment(_).format('DD/MM/YYYY')
     },
     {
         title: "Nơi cấp",
