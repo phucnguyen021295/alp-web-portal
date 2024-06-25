@@ -11,15 +11,21 @@ interface Props extends ModalProps {
     id: number;
     formId: number;
     maTT: number;
+    onClose: () => void
 }
 
 const DepositApprovalForm: React.FC<Props> = (props: Props) => {
-    const { open, status, id, formId, maTT, ...otherProps } = props;
+    const { open, status, id, formId, maTT, onClose, ...otherProps } = props;
     const [postApprove, response] = usePostApproveMutation();
     const onFinish = (value: object) => {
         if(value.noiDung && value.noiDung.trim()) {
             postApprove({formId, id, maTT, noiDung: value.noiDung}).then((_response) => {
+                if(_response.error) {
+                    message.error(`${_response.error?.data?.Message}[${_response.error?.status}]`);
+                    return
+                }
                 message.info(`${status} thành công!`);
+                onClose()
             })
             .catch((error) => {
                 console.log(error);
