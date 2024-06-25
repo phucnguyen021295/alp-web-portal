@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Tabs, Modal, ModalProps, TabsProps } from "antd";
+import { Tabs, Modal, ModalProps, TabsProps, Flex, Spin } from "antd";
 
 // Components
 import Common from '@/app/home/components/TransferForm/components/Common';
@@ -40,6 +40,7 @@ const DepositApprovalForm: React.FC<Props> = (props: Props) => {
                     children: <CustomerReceivesTransfer data={data.objCN} />,
                 },
             ];
+            return items;
         }
         return [];
     }, [data])
@@ -54,7 +55,15 @@ const DepositApprovalForm: React.FC<Props> = (props: Props) => {
             style={{height: 'calc(100vh - 100px)'}}
             {...otherProps}
         >
-            <Tabs defaultActiveKey="1" items={_items} onChange={onChange} />
+            {
+                isLoading ? (
+                    <Flex justify="center">
+                        <Spin />
+                    </Flex>
+                ) : (
+                    <Tabs defaultActiveKey="1" items={_items} onChange={onChange} />
+                )
+            }
         </Modal>
     );
 };
