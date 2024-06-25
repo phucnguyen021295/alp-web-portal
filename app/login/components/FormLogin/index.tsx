@@ -19,7 +19,7 @@ const FormLogin: React.FC = () => {
                 // const redirect = searchParams.get("redirect");
                 setCookie('token', data.token);
                 localStorage.setItem('profile', JSON.stringify(data.profile))
-                router.push("/home", { scroll: false });
+                router.replace("/home", { scroll: false });
             })
             .catch((error) => {
                 console.log(error);

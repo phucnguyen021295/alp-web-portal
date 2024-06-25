@@ -3,7 +3,7 @@ import { Tabs, Modal, ModalProps, TabsProps, Flex, Spin } from "antd";
 
 // Components
 import Common from '@/app/home/components/TransferForm/components/Common';
-import Customer from '@/app/home/components/TransferForm/components/TransferCustomers';
+import TransferCustomers from '@/app/home/components/TransferForm/components/TransferCustomers';
 import CustomerReceivesTransfer from '@/app/home/components/TransferForm/components/CustomerReceivesTransfer';
 import { useGetDetailTransactionQuery } from "@/app/home/apis";
 
@@ -32,12 +32,12 @@ const DepositApprovalForm: React.FC<Props> = (props: Props) => {
                 {
                     key: "2",
                     label: "Khách hàng chuyển nhượng",
-                    children: <Customer data={data.objCN} />,
+                    children: <TransferCustomers data={data.objCN} KhachChuyen={data.KhachChuyen} />,
                 },
                 {
                     key: "3",
                     label: "Khách hàng nhận chuyển nhượng",
-                    children: <CustomerReceivesTransfer data={data.objCN} />,
+                    children: <CustomerReceivesTransfer data={data.objCN} KhachNhan={data.KhachNhan} />,
                 },
             ];
             return items;

@@ -25,7 +25,7 @@ export default function Home() {
                         width={150}
                         height={64}
                         priority
-                        style={{marginBottom: 40}}
+                        style={{marginBottom: 40, boxShadow: '0px 0px 15px 0px rgba(0, 0, 0, 0.25)'}}
                     />
                     <FormLogin />
                 </Flex>

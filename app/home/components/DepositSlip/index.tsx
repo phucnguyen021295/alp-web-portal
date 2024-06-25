@@ -33,7 +33,7 @@ const DepositApprovalForm: React.FC<Props> = (props: Props) => {
             {
                 key: "2",
                 label: "Khách hàng",
-                children: <Customer data={data?.objGD || {}} />,
+                children: <Customer data={data?.objGD || {}} DongSoHuu={data?.DongSoHuu} />,
             },
             {
                 key: "3",

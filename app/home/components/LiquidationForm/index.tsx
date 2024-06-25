@@ -31,7 +31,7 @@ const DepositApprovalForm: React.FC<Props> = (props: Props) => {
                 {
                     key: "2",
                     label: "Khách hàng",
-                    children: <Customer data={data.objTL} />,
+                    children: <Customer data={data.objTL} DongSoHuu={data?.DongSoHuu} />,
                 },
             ];
             return items;
