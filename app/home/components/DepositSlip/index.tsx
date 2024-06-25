@@ -17,10 +17,11 @@ interface Props extends ModalProps {
     open: boolean;
     id: number;
     formid: number;
+    title: string
 }
 
 const DepositApprovalForm: React.FC<Props> = (props: Props) => {
-    const { open, formid, id, ...otherProps } = props;
+    const { open, formid, id, title, ...otherProps } = props;
     const { data, isLoading } = useGetDetailTransactionQuery({formid, id});
 
     const _items = useMemo(() => {
@@ -56,7 +57,7 @@ const DepositApprovalForm: React.FC<Props> = (props: Props) => {
     
     return (
         <Modal
-            title="Phiếu đặt cọc"
+            title={title}
             centered
             open={open}
             footer={null}

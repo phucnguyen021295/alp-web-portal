@@ -64,22 +64,22 @@ const App: React.FC = () => {
             {
                 key: "27",
                 label: "Giữ chỗ",
-                children: <DepositTable params={params} />,
+                children: <DepositTable params={params} title_detail={'Phiếu giữ chỗ'} />,
             },
             {
                 key: "28",
                 label: "Đặt cọc",
-                children: <DepositTable params={params} />,
+                children: <DepositTable params={params} title_detail={'Phiếu đặt cọc'} />,
             },
             {
                 key: "26",
                 label: "Hợp đồng Góp vốn",
-                children: <DepositTable params={params} />,
+                children: <DepositTable params={params} title_detail={'Hợp đồng Góp vốn'} />,
             },
             {
                 key: "29",
                 label: "Hợp đồng mua bán",
-                children: <DepositTable params={params} />,
+                children: <DepositTable params={params} title_detail={'Hợp đồng mua bán'} />,
             },
             {
                 key: "32",

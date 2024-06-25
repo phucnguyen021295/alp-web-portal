@@ -34,8 +34,8 @@ const Common: React.FC<Props> = (props: Props) => {
             <Label label="Thông tin chứng từ" />
             <Flex vertical style={{ margin: "0 24px" }}>
             <LabelBorder label="Số phiếu" value={data.ctSoPhieu} />
-                <LabelBorder label="Tên HTTT" value={data.ctTenHTTT} />
-                <LabelBorder label="Tên MDHT" value={data.ctTenMDHT} />
+                <LabelBorder label="Hình thức thanh toán" value={data.ctTenHTTT} />
+                <LabelBorder label="Mức độ hoàn thiện" value={data.ctTenMDHT} />
                 <LabelBorder label="Ngày ký" value={moment(data.ctNgayKy).format('DD/MM/YYYY')} />
                 <LabelBorder label="Tên sale" value={data.ctSale} />
                 <LabelBorder label="Tên ngân hàng" value={data.ctTenNH} />

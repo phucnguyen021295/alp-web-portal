@@ -32,11 +32,11 @@ const options: Option[] = [
         label: "Thủ tục duyệt",
         children: [
             {
-                value: '2',
+                value: "2",
                 label: "Duyệt",
             },
             {
-                value: '3',
+                value: "3",
                 label: "Không duyệt",
             },
         ],
@@ -48,7 +48,7 @@ const options: Option[] = [
             {
                 value: "4",
                 label: "Đã thu tiền",
-            }
+            },
         ],
     },
 ];
@@ -61,17 +61,18 @@ interface Option {
 
 interface Props {
     params: object;
+    title_detail: string;
 }
 
 const COLOR = {
-    'Đã thu tiền': "rgba(127, 194, 65, 1)",
-    'Đã duyệt': "rgba(127, 194, 65, 0.9)",
-    'Chờ duyệt': "rgba(255, 214, 10, 1)",
-    'Đã thanh lý': 'rgb(223 91 49)'
-}
+    "Đã thu tiền": "rgba(127, 194, 65, 1)",
+    "Đã duyệt": "rgba(127, 194, 65, 0.9)",
+    "Chờ duyệt": "rgba(255, 214, 10, 1)",
+    "Đã thanh lý": "rgb(223 91 49)",
+};
 
 const DepositTable: React.FC<Props> = (props: Props) => {
-    const { params = {} } = props;
+    const { params = {}, title_detail } = props;
     const [open, setOpen] = useState(false);
     const [openDetail, setOpenDetail] = useState(false);
     const [item, setItemSelected] = useState("");
@@ -98,14 +99,14 @@ const DepositTable: React.FC<Props> = (props: Props) => {
                     value,
                     selectOptions
                 ) => {
-                    console.log('value', value, selectOptions)
+                    console.log("value", value, selectOptions);
                     if (value.includes("see-details")) {
                         setOpenDetail(true);
                         setItemSelected(record);
                     } else {
                         const option = selectOptions[selectOptions.length - 1];
                         setStatus(option.label);
-                        setItemSelected(merge(record, {maTT: option.value}));
+                        setItemSelected(merge(record, { maTT: option.value }));
                         setOpen(true);
                     }
                 };
@@ -149,10 +150,10 @@ const DepositTable: React.FC<Props> = (props: Props) => {
                         align="center"
                         justify="center"
                         style={{
-                            padding: '4px 8px',
+                            padding: "4px 8px",
                             minHeight: 40,
                             borderRadius: 30,
-                            backgroundColor: COLOR[_] || 'rgb(221 223 49)',
+                            backgroundColor: COLOR[_] || "rgb(221 223 49)",
                             color: "#fff",
                         }}
                     >
@@ -204,7 +205,7 @@ const DepositTable: React.FC<Props> = (props: Props) => {
                 signDay: moment(item.NgayKy).format("DD/MM/YYYY"),
                 creator: item.NguoiTao,
                 dateCreated: moment(item.NgayTao).format("DD/MM/YYYY"),
-                maTT: item.MaTT
+                maTT: item.MaTT,
             }));
         }
         return [];
@@ -241,6 +242,7 @@ const DepositTable: React.FC<Props> = (props: Props) => {
 
             {openDetail && (
                 <DepositSlip
+                    title={title_detail}
                     open={openDetail}
                     formid={params?.formId}
                     id={item.key}
