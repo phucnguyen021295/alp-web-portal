@@ -4,10 +4,15 @@ import { Flex } from "antd";
 // Components
 import Label from "@/app/home/components/DepositSlip/components/Label";
 import LabelBorder from "@/app/components/LabelBorder";
+import moment from "moment";
 
-interface Props {}
+interface Props {
+    data: object
+}
 
 const Common: React.FC<Props> = (props: Props) => {
+    const {data} = props;
+    
     return (
         <Flex
             vertical
@@ -19,14 +24,14 @@ const Common: React.FC<Props> = (props: Props) => {
         >
             <Label label="Sản phẩm" />
             <Flex vertical style={{ margin: "0 24px" }}>
-                <LabelBorder label="Dự án" value="KING PALACE" />
-                <LabelBorder label="Mã sản phẩm" value="CH0505" />
+                <LabelBorder label="Dự án" value={data.spTenDA} />
+                <LabelBorder label="Mã sản phẩm" value={data.spKyHieu} />
             </Flex>
 
             <Label label="Thông tin chứng từ" />
             <Flex vertical style={{ margin: "0 24px" }}>
-                <LabelBorder label="Số phiếu " value="A0101/HDDC" />
-                <LabelBorder label="Ngày ký" value="01/04/2024" />
+                <LabelBorder label="Số phiếu " value={data.ctSoPhieu} />
+                <LabelBorder label="Ngày ký" value={moment(data.ctNgayKy).format('DD/MM/YYYY')} />
             </Flex>
         </Flex>
     );

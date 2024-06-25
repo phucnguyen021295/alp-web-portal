@@ -4,10 +4,14 @@ import { Flex } from "antd";
 // Components
 import Label from "@/app/home/components/DepositSlip/components/Label";
 import LabelBorder from "@/app/components/LabelBorder";
+import moment from "moment";
 
-interface Props {}
+interface Props {
+    data: object
+}
 
 const TransferCustomers: React.FC<Props> = (props: Props) => {
+    const {data} = props;
     return (
         <Flex
             vertical
@@ -19,14 +23,16 @@ const TransferCustomers: React.FC<Props> = (props: Props) => {
         >
             <Label label="Người đứng tên" />
             <Flex vertical style={{ margin: "0 24px" }}>
-                <LabelBorder label="Họ và tên" value="Nguyễn Hồng Phúc" />
-                <LabelBorder label="Ngày sinh" value="02/12/1995" />
-                <LabelBorder label="Nơi sinh" value="Thái Bình" />
-                <LabelBorder label="Số CMND/CCCD" value="123456789" />
-                <LabelBorder label="Ngày cấp" value="01/09/2016" />
-                <LabelBorder label="Nơi cấp" value="CA Thái Bình" />
-                <LabelBorder label="Điện thoại" value="01234568798" />
-                <LabelBorder label="Email" value="phuc@gmail.com" />
+                <LabelBorder label="Họ và tên" value={data.khHoTen} />
+                <LabelBorder label="Ngày sinh" value={moment(data.khNgaySinh).format('DD/MM/YYYY')} />
+                <LabelBorder label="Nơi sinh" value={data.khNoiSinh} />
+                <LabelBorder label="Số CMND/CCCD" value={data.khSoCMND} />
+                <LabelBorder label="Ngày cấp" value={moment(data.khNgayCapCMND).format('DD/MM/YYYY')} />
+                <LabelBorder label="Nơi cấp" value={data.khNoiCapCMND} />
+                <LabelBorder label="Điện thoại" value={data.khDienThoai} />
+                <LabelBorder label="Email" value={data.khEmail} />
+                <LabelBorder label="Địa chỉ thường trú " value={data.khDiaChiTT} />
+                <LabelBorder label="Địa chỉ liên lạc" value={data.khDiaChiLL} />
             </Flex>
         </Flex>
     );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Tabs, Modal, ModalProps, TabsProps } from "antd";
 
 // Components
@@ -11,24 +11,6 @@ const onChange = (key: string) => {
     console.log(key);
 };
 
-const items: TabsProps["items"] = [
-    {
-        key: "1",
-        label: "Chung",
-        children: <Common />,
-    },
-    {
-        key: "2",
-        label: "Khách hàng chuyển nhượng",
-        children: <Customer />,
-    },
-    {
-        key: "3",
-        label: "Khách hàng nhận chuyển nhượng",
-        children: <CustomerReceivesTransfer />,
-    },
-];
-
 interface Props extends ModalProps {
     open: boolean;
     formid: number;
@@ -38,6 +20,29 @@ interface Props extends ModalProps {
 const DepositApprovalForm: React.FC<Props> = (props: Props) => {
     const { open, formid, id, ...otherProps } = props;
     const { data, isLoading } = useGetDetailTransactionQuery({formid, id});
+
+    const _items = useMemo(() => {
+        if(data?.objCN) {
+            const items: TabsProps["items"] = [
+                {
+                    key: "1",
+                    label: "Chung",
+                    children: <Common data={data.objCN} />,
+                },
+                {
+                    key: "2",
+                    label: "Khách hàng chuyển nhượng",
+                    children: <Customer data={data.objCN} />,
+                },
+                {
+                    key: "3",
+                    label: "Khách hàng nhận chuyển nhượng",
+                    children: <CustomerReceivesTransfer data={data.objCN} />,
+                },
+            ];
+        }
+        return [];
+    }, [data])
 
     return (
         <Modal
@@ -49,7 +54,7 @@ const DepositApprovalForm: React.FC<Props> = (props: Props) => {
             style={{height: 'calc(100vh - 100px)'}}
             {...otherProps}
         >
-            <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+            <Tabs defaultActiveKey="1" items={_items} onChange={onChange} />
         </Modal>
     );
 };
