@@ -147,7 +147,7 @@ const Price: React.FC<Props> = (props: Props) => {
                     </Row>
 
                     <Row align="middle" style={{ marginBottom: 24 }}>
-                        <Col span={8}>Đơn giá gồm VAT, PDT:</Col>
+                        <Col span={8}>Đơn giá gồm VAT, PBT:</Col>
                         <Col span={8} style={{ paddingRight: 12 }}>
                             <LabelBorder
                                 value={formatMoney(data.gnyDonGiaVATPBT)}

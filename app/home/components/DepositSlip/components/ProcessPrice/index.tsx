@@ -16,6 +16,7 @@ interface DataType {
     ratioVAT: string;
     taxVAT: string;
     pbt: string;
+    PhiBT: number;
 }
 
 const columns: TableProps<DataType>["columns"] = [
@@ -73,6 +74,13 @@ const columns: TableProps<DataType>["columns"] = [
         dataIndex: "pbt",
         key: "pbt",
         width: 80,
+        align: "center",
+    },
+    {
+        title: "Phí bảo trì",
+        dataIndex: "PhiBT",
+        key: "PhiBT",
+        width: 100,
         align: "center",
     },
 ];
@@ -201,13 +209,14 @@ const ProcessPrice: React.FC<Props> = (props: Props) => {
         return data.map((item) => ({
             key: item.ID,
             batch: item.DotTT,
-            dateOfPayment: moment(item.NgayTT).format('DD/MM/YYYY'),
+            dateOfPayment: item.NgayTT ? moment(item.NgayTT).format('DD/MM/YYYY') : "",
             typeTT: item.TenKTT,
-            ratioTT: item.TyLeTT,
+            ratioTT: `${item.TyLeTT || 0}%`,
             corresponding: formatMoney(item.TuongUng),
-            ratioVAT: item.TyLeVAT,
+            ratioVAT: `${item.TyLeVAT || 0}%`,
             taxVAT: item.ThueVAT,
-            pbt: item.GiamTruTTS,
+            pbt: `${item.GiamTruTTS || 0}%`,
+            PhiBT: item.PhiBT,
         }));
     }, [data]);
 

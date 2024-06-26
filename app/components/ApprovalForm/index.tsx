@@ -56,7 +56,7 @@ const DepositApprovalForm: React.FC<Props> = (props: Props) => {
                     <TextArea rows={4} size="large" placeholder="Ghi chú hoặc lý do" />
                 </MyFormItem>
 
-                <Flex justify="flex-end">
+                <Flex justify="center">
                     <Button type="primary" loading={isLoading} htmlType="submit">
                         Thực hiện
                     </Button>
