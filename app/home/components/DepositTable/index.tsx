@@ -62,6 +62,7 @@ interface Option {
 interface Props {
     params: object;
     title_detail: string;
+    title_form: string;
 }
 
 const COLOR = {
@@ -72,7 +73,7 @@ const COLOR = {
 };
 
 const DepositTable: React.FC<Props> = (props: Props) => {
-    const { params = {}, title_detail } = props;
+    const { params = {}, title_detail, title_form } = props;
     const [open, setOpen] = useState(false);
     const [openDetail, setOpenDetail] = useState(false);
     const [item, setItemSelected] = useState("");
@@ -232,6 +233,7 @@ const DepositTable: React.FC<Props> = (props: Props) => {
                 <DepositApprovalForm
                     open={open}
                     status={status}
+                    title={title_form}
                     formId={parseInt(params?.formId)}
                     id={item.key}
                     maTT={parseInt(item.maTT)}

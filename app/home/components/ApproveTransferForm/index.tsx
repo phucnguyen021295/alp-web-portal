@@ -19,20 +19,20 @@ const ApproveTransferForm: React.FC<Props> = (props: Props) => {
     const [postApprove, response] = usePostApproveMutation();
     
     const onFinish = (value: object) => {
-        if(value.noiDung && value.noiDung.trim()) {
-            postApprove({formId, id, maTT, noiDung: value.noiDung}).then((_response) => {
-                if(_response.error) {
-                    message.error(`${_response.error?.data?.Message}!.[${_response.error?.status}]`);
-                    return
-                }
-                message.info(`${status} thành công!`);
-                onClose()
-            })
-            .catch((error) => {
-                console.log(error);
-                message.error(`Đã có lỗi xảy ra, vui lòng thử lại sau!`);
-            });
-        }
+        console.log('value', value);
+        const noiDung = value.noiDung ? value.noiDung.trim() : "";
+        postApprove({formId, id, maTT, noiDung: noiDung}).then((_response) => {
+            if(_response.error) {
+                message.error(`${_response.error?.data?.Message}!.[${_response.error?.status}]`);
+                return
+            }
+            message.info(`${status} thành công!`);
+            onClose()
+        })
+        .catch((error) => {
+            console.log(error);
+            message.error(`Đã có lỗi xảy ra, vui lòng thử lại sau!`);
+        });
     };
 
     return (

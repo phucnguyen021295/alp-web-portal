@@ -11,32 +11,33 @@ interface Props extends ModalProps {
     id: number;
     formId: number;
     maTT: number;
-    onClose: () => void
+    onClose: () => void;
+    title: string;
 }
 
 const DepositApprovalForm: React.FC<Props> = (props: Props) => {
-    const { open, status, id, formId, maTT, onClose, ...otherProps } = props;
+    const { open, status, id, formId, title, maTT, onClose, ...otherProps } = props;
     const [postApprove, response] = usePostApproveMutation();
     const onFinish = (value: object) => {
-        if(value.noiDung && value.noiDung.trim()) {
-            postApprove({formId, id, maTT, noiDung: value.noiDung}).then((_response) => {
-                if(_response.error) {
-                    message.error(`${_response.error?.data?.Message}!.[${_response.error?.status}]`);
-                    return
-                }
-                message.info(`${status} thành công!`);
-                onClose()
-            })
-            .catch((error) => {
-                console.log(error);
-                message.error(`Đã có lỗi xảy ra, vui lòng thử lại sau!`);
-            });
-        }
+        console.log('value', value)
+        const noiDung = value.noiDung ? value.noiDung.trim() : "";
+        postApprove({formId, id, maTT, noiDung: noiDung}).then((_response) => {
+            if(_response.error) {
+                message.error(`${_response.error?.data?.Message}!.[${_response.error?.status}]`);
+                return
+            }
+            message.info(`${status} thành công!`);
+            onClose()
+        })
+        .catch((error) => {
+            console.log(error);
+            message.error(`Đã có lỗi xảy ra, vui lòng thử lại sau!`);
+        });
     };
 
     return (
         <ApprovalForm
-            title="Phiếu duyệt đặt cọc"
+            title={title}
             status={status}
             open={open}
             isLoading={false}

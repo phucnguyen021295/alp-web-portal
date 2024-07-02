@@ -202,6 +202,9 @@ interface Props {
     data: [];
 }
 
+const total = (data = [], value: string) =>
+    data.reduce((sum, item) => sum + item[value], 0);
+
 const ProcessPrice: React.FC<Props> = (props: Props) => {
     const { data } = props;
 
@@ -209,14 +212,16 @@ const ProcessPrice: React.FC<Props> = (props: Props) => {
         return data.map((item) => ({
             key: item.ID,
             batch: item.DotTT,
-            dateOfPayment: item.NgayTT ? moment(item.NgayTT).format('DD/MM/YYYY') : "",
+            dateOfPayment: item.NgayTT
+                ? moment(item.NgayTT).format("DD/MM/YYYY")
+                : "",
             typeTT: item.TenKTT,
             ratioTT: `${item.TyLeTT || 0}%`,
             corresponding: formatMoney(item.TuongUng),
             ratioVAT: `${item.TyLeVAT || 0}%`,
             taxVAT: item.ThueVAT,
             pbt: `${item.GiamTruTTS || 0}%`,
-            PhiBT: item.PhiBT,
+            PhiBT: formatMoney(item.PhiBT),
         }));
     }, [data]);
 
@@ -236,6 +241,70 @@ const ProcessPrice: React.FC<Props> = (props: Props) => {
                 scroll={{ x: 1024 }}
                 pagination={false}
                 style={{ margin: "0 24px" }}
+                summary={() => (
+                    <Table.Summary fixed={"bottom"}>
+                        <Table.Summary.Row>
+                            <Table.Summary.Cell
+                                index={0}
+                                colSpan={3}
+                            ></Table.Summary.Cell>
+                            <Table.Summary.Cell
+                                index={3}
+                                colSpan={1}
+                                align="center"
+                            >
+                                <span style={{ fontWeight: 500 }}>
+                                    {total(data, "TyLeTT")}%
+                                </span>
+                            </Table.Summary.Cell>
+                            <Table.Summary.Cell
+                                index={4}
+                                colSpan={1}
+                                align="center"
+                            >
+                                <span style={{ fontWeight: 500 }}>
+                                    {formatMoney(total(data, "TuongUng"))}
+                                </span>
+                            </Table.Summary.Cell>
+                            <Table.Summary.Cell
+                                index={5}
+                                colSpan={1}
+                                align="center"
+                            >
+                                <span style={{ fontWeight: 500 }}>
+                                    {total(data, "TyLeVAT")}%
+                                </span>
+                            </Table.Summary.Cell>
+                            <Table.Summary.Cell
+                                index={6}
+                                colSpan={1}
+                                align="center"
+                            >
+                                <span style={{ fontWeight: 500 }}>
+                                    {total(data, "ThueVAT")}%
+                                </span>
+                            </Table.Summary.Cell>
+                            <Table.Summary.Cell
+                                index={7}
+                                colSpan={1}
+                                align="center"
+                            >
+                                <span style={{ fontWeight: 500 }}>
+                                    {total(data, "GiamTruTTS")}%
+                                </span>
+                            </Table.Summary.Cell>
+                            <Table.Summary.Cell
+                                index={8}
+                                colSpan={1}
+                                align="center"
+                            >
+                                <span style={{ fontWeight: 500 }}>
+                                    {formatMoney(total(data, "PhiBT"))}
+                                </span>
+                            </Table.Summary.Cell>
+                        </Table.Summary.Row>
+                    </Table.Summary>
+                )}
             />
         </Flex>
     );
