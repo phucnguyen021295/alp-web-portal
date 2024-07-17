@@ -27,8 +27,8 @@ const Common: React.FC<Props> = (props: Props) => {
                 <LabelBorder label="Khu" value={data.spTenKhu} />
                 <LabelBorder label="Phân khu" value={data.spTenPK} />
                 <LabelBorder label="Mã sản phẩm" value={data.spKyHieu} />
-                <LabelBorder label="Diện tích thông thủy" value={data.spThongThuy} />
-                <LabelBorder label="Diện tích tim tường" value={data.spTimTuong} />
+                <LabelBorder label={data.spTypeId==1?"Diện tích tim tường":"Diện tích đất"} value={data.spTimTuong + " m²"} />
+                <LabelBorder label={data.spTypeId==1?"Diện tích thông thủy":"Diện tích xây dựng"} value={data.spThongThuy + " m²"} />
             </Flex>
 
             <Label label="Thông tin chứng từ" />

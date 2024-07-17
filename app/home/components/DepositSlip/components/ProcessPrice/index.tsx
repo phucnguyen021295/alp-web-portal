@@ -83,6 +83,13 @@ const columns: TableProps<DataType>["columns"] = [
         width: 100,
         align: "center",
     },
+    {
+        title: "Cộng",
+        dataIndex: "SoTien",
+        key: "SoTien",
+        width: 100,
+        align: "center",
+    },
 ];
 
 // const data: DataType[] = [
@@ -218,10 +225,11 @@ const ProcessPrice: React.FC<Props> = (props: Props) => {
             typeTT: item.TenKTT,
             ratioTT: `${item.TyLeTT || 0}%`,
             corresponding: formatMoney(item.TuongUng),
-            ratioVAT: `${item.TyLeVAT || 0}%`,
+            ratioVAT: item.TyLeVAT,
             taxVAT: item.ThueVAT,
             pbt: `${item.GiamTruTTS || 0}%`,
             PhiBT: formatMoney(item.PhiBT),
+            SoTien: formatMoney(item.SoTien)
         }));
     }, [data]);
 
@@ -300,6 +308,15 @@ const ProcessPrice: React.FC<Props> = (props: Props) => {
                             >
                                 <span style={{ fontWeight: 500 }}>
                                     {formatMoney(total(data, "PhiBT"))}
+                                </span>
+                            </Table.Summary.Cell>
+                            <Table.Summary.Cell
+                                index={9}
+                                colSpan={1}
+                                align="center"
+                            >
+                                <span style={{ fontWeight: 500 }}>
+                                    {formatMoney(total(data, "SoTien"))}
                                 </span>
                             </Table.Summary.Cell>
                         </Table.Summary.Row>

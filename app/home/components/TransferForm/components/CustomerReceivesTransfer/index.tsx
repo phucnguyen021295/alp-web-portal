@@ -107,10 +107,10 @@ const CustomerReceivesTransfer: React.FC<Props> = (props: Props) => {
             <Label label="Người đứng tên" />
             <Flex vertical style={{ margin: "0 24px" }}>
                 <LabelBorder label="Họ và tên" value={data.ncnHoTen} />
-                <LabelBorder label="Ngày sinh" value={moment(data.ncnNgaySinh).format('DD/MM/YYYY')} />
+                <LabelBorder label="Ngày sinh" value={data.ncnNgaySinh ? moment(data.ncnNgaySinh).format('DD/MM/YYYY') : ''} />
                 <LabelBorder label="Nơi sinh" value={data.ncnNoiSinh} />
                 <LabelBorder label="Số CMND/CCCD" value={data.ncnSoCMND} />
-                <LabelBorder label="Ngày cấp" value={moment(data.ncnNgayCapCMND).format('DD/MM/YYYY')} />
+                <LabelBorder label="Ngày cấp" value={data.ncnNgayCapCMND ? moment(data.ncnNgayCapCMND).format('DD/MM/YYYY') : ''} />
                 <LabelBorder label="Nơi cấp" value={data.ncnNoiCapCMND} />
                 <LabelBorder label="Điện thoại" value={data.ncnDienThoai} />
                 <LabelBorder label="Email" value={data.ncnEmail} />

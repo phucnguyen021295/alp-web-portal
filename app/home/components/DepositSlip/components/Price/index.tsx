@@ -41,6 +41,7 @@ const Price: React.FC<Props> = (props: Props) => {
                     </Col>
                 </Row>
                 <Flex vertical style={{ margin: "0 24px" }}>
+                {data.spTypeId==1?(<>
                     <Row align="middle" style={{ marginBottom: 24 }}>
                         <Col span={8}>Đơn giá chưa VAT:</Col>
                         <Col span={8} style={{ paddingRight: 12 }}>
@@ -104,6 +105,7 @@ const Price: React.FC<Props> = (props: Props) => {
                             />
                         </Col>
                     </Row>
+
                     <Row align="middle" style={{ marginBottom: 24 }}>
                         <Col span={8}>Phí bảo trì:</Col>
                         <Col span={8} style={{ paddingRight: 12 }}>
@@ -119,43 +121,15 @@ const Price: React.FC<Props> = (props: Props) => {
                     </Row>
 
                     <Row align="middle" style={{ marginBottom: 24 }}>
-                        <Col span={8}>Đơn giá QSD đất:</Col>
-                        <Col span={8} style={{ paddingRight: 12 }}>
-                            <LabelBorder
-                                value={formatMoney(data.gnyDonGiaDat)}
-                            />
-                        </Col>
-                        <Col span={8} style={{ paddingLeft: 12 }}>
-                            <LabelBorder
-                                value={formatMoney(data.gsckDonGiaDat)}
-                            />
-                        </Col>
-                    </Row>
-
-                    <Row align="middle" style={{ marginBottom: 24 }}>
-                        <Col span={8}>Giá trị QSD đất:</Col>
-                        <Col span={8} style={{ paddingRight: 12 }}>
-                            <LabelBorder
-                                value={formatMoney(data.gnyGiaTriDat)}
-                            />
-                        </Col>
-                        <Col span={8} style={{ paddingLeft: 12 }}>
-                            <LabelBorder
-                                value={formatMoney(data.gsckGiaTriDat)}
-                            />
-                        </Col>
-                    </Row>
-
-                    <Row align="middle" style={{ marginBottom: 24 }}>
                         <Col span={8}>Đơn giá gồm VAT, PBT:</Col>
                         <Col span={8} style={{ paddingRight: 12 }}>
                             <LabelBorder
-                                value={formatMoney(data.gnyDonGiaVATPBT)}
+                                value={formatMoney(data.gnyDonGia)}
                             />
                         </Col>
                         <Col span={8} style={{ paddingLeft: 12 }}>
                             <LabelBorder
-                                value={formatMoney(data.gnygsckDonGia)}
+                                value={formatMoney(data.gsckDonGia)}
                             />
                         </Col>
                     </Row>
@@ -173,6 +147,185 @@ const Price: React.FC<Props> = (props: Props) => {
                             />
                         </Col>
                     </Row>
+                </>):(<>
+                    <Row align="middle" style={{ marginBottom: 24 }}>
+                        <Col span={8}>Tổng giá trị HĐ chưa VAT:</Col>
+                        <Col span={8} style={{ paddingRight: 12 }}>
+                            <LabelBorder
+                                value={formatMoney(data.gnyTongGiaTriChuaVAT)}
+                            />
+                        </Col>
+                        <Col span={8} style={{ paddingLeft: 12 }}>
+                            <LabelBorder
+                                value={formatMoney(data.gsckTongGiaTriChuaVAT)}
+                            />
+                        </Col>
+                    </Row>
+
+                    <Row align="middle" style={{ marginBottom: 24 }}>
+                        <Col span={8}>Thuế VAT:</Col>
+                        <Col span={8} style={{ paddingRight: 12 }}>
+                            <LabelBorder
+                                value={""}
+                            />
+                        </Col>
+                        <Col span={8} style={{ paddingLeft: 12 }}>
+                            <LabelBorder
+                                value={formatMoney(data.gsckThueVAT)}
+                            />
+                        </Col>
+                    </Row>
+
+                    <Row align="middle" style={{ marginBottom: 24 }}>
+                        <Col span={8}>Tổng giá trị HĐ gồm VAT:</Col>
+                        <Col span={8} style={{ paddingRight: 12 }}>
+                            <LabelBorder
+                                value={formatMoney(data.gnyTongGiaTri)}
+                            />
+                        </Col>
+                        <Col span={8} style={{ paddingLeft: 12 }}>
+                            <LabelBorder
+                                value={formatMoney(data.gsckTongGiaTri)}
+                            />
+                        </Col>
+                    </Row>
+
+                    <Row align="middle" style={{ marginBottom: 24 }}>
+                        <Col span={8}>Đơn giá đất chưa VAT:</Col>
+                        <Col span={8} style={{ paddingRight: 12 }}>
+                            <LabelBorder
+                                value={formatMoney(data.gnyDonGiaDat)}
+                            />
+                        </Col>
+                        <Col span={8} style={{ paddingLeft: 12 }}>
+                            <LabelBorder
+                                value={""}
+                            />
+                        </Col>
+                    </Row>
+
+                    <Row align="middle" style={{ marginBottom: 24 }}>
+                        <Col span={8}>Tổng tiền đất chưa VAT:</Col>
+                        <Col span={8} style={{ paddingRight: 12 }}>
+                            <LabelBorder
+                                value={formatMoney(data.gnyTongTienDat)}
+                            />
+                        </Col>
+                        <Col span={8} style={{ paddingLeft: 12 }}>
+                            <LabelBorder
+                                value={""}
+                            />
+                        </Col>
+                    </Row>
+
+                    <Row align="middle" style={{ marginBottom: 24 }}>
+                        <Col span={8}>VAT đất:</Col>
+                        <Col span={8} style={{ paddingRight: 12 }}>
+                            <LabelBorder
+                                value={formatMoney(data.gnyVatDat)}
+                            />
+                        </Col>
+                        <Col span={8} style={{ paddingLeft: 12 }}>
+                            <LabelBorder
+                                value={""}
+                            />
+                        </Col>
+                    </Row>
+
+                    <Row align="middle" style={{ marginBottom: 24 }}>
+                        <Col span={8}>Đơn giá đất có VAT:</Col>
+                        <Col span={8} style={{ paddingRight: 12 }}>
+                            <LabelBorder
+                                value={formatMoney(data.gnyDonGiaDatVAT)}
+                            />
+                        </Col>
+                        <Col span={8} style={{ paddingLeft: 12 }}>
+                            <LabelBorder
+                                value={""}
+                            />
+                        </Col>
+                    </Row>
+
+                    <Row align="middle" style={{ marginBottom: 24 }}>
+                        <Col span={8}>Tổng tiền đất có VAT:</Col>
+                        <Col span={8} style={{ paddingRight: 12 }}>
+                            <LabelBorder
+                                value={formatMoney(data.gnyTongTienDatVAT)}
+                            />
+                        </Col>
+                        <Col span={8} style={{ paddingLeft: 12 }}>
+                            <LabelBorder
+                                value={""}
+                            />
+                        </Col>
+                    </Row>
+
+                    <Row align="middle" style={{ marginBottom: 24 }}>
+                        <Col span={8}>Đơn giá QSD đất:</Col>
+                        <Col span={8} style={{ paddingRight: 12 }}>
+                            <LabelBorder value={formatMoney(data.gnyDonGiaQSDDat)} />
+                        </Col>
+                        <Col span={8} style={{ paddingLeft: 12 }}>
+                            <LabelBorder value={""} />
+                        </Col>
+                    </Row>
+
+                    <Row align="middle" style={{ marginBottom: 24 }}>
+                        <Col span={8}>Giá trị QSD đất:</Col>
+                        <Col span={8} style={{ paddingRight: 12 }}>
+                            <LabelBorder value={formatMoney(data.gnyGiaTriQSDDat)} />
+                        </Col>
+                        <Col span={8} style={{ paddingLeft: 12 }}>
+                            <LabelBorder value={""} />
+                        </Col>
+                    </Row>
+
+                    <Row align="middle" style={{ marginBottom: 24 }}>
+                        <Col span={8}>Đơn giá XD chưa VAT:</Col>
+                        <Col span={8} style={{ paddingRight: 12 }}>
+                            <LabelBorder value={formatMoney(data.gnyDonGiaChuaVAT)} />
+                        </Col>
+                        <Col span={8} style={{ paddingLeft: 12 }}>
+                            <LabelBorder value={""} />
+                        </Col>
+                    </Row>
+                    <Row align="middle" style={{ marginBottom: 24 }}>
+                        <Col span={8}>Tổng giá XD chưa VAT:</Col>
+                        <Col span={8} style={{ paddingRight: 12 }}>
+                            <LabelBorder value={formatMoney(data.gnyTienXD)} />
+                        </Col>
+                        <Col span={8} style={{ paddingLeft: 12 }}>
+                            <LabelBorder value={""} />
+                        </Col>
+                    </Row>
+                    <Row align="middle" style={{ marginBottom: 24 }}>
+                        <Col span={8}>Thuế VAT XD:</Col>
+                        <Col span={8} style={{ paddingRight: 12 }}>
+                            <LabelBorder value={formatMoney(data.gnyThueVAT)} />
+                        </Col>
+                        <Col span={8} style={{ paddingLeft: 12 }}>
+                            <LabelBorder value={""} />
+                        </Col>
+                    </Row>
+                    <Row align="middle" style={{ marginBottom: 24 }}>
+                        <Col span={8}>Đơn giá XD gồm VAT:</Col>
+                        <Col span={8} style={{ paddingRight: 12 }}>
+                            <LabelBorder value={formatMoney(data.gnyDonGiaGomVAT)} />
+                        </Col>
+                        <Col span={8} style={{ paddingLeft: 12 }}>
+                            <LabelBorder value={""} />
+                        </Col>
+                    </Row>
+                    <Row align="middle" style={{ marginBottom: 24 }}>
+                        <Col span={8}>Tổng giá XD gồm VAT:</Col>
+                        <Col span={8} style={{ paddingRight: 12 }}>
+                            <LabelBorder value={formatMoney(data.gnyTienXDVAT)} />
+                        </Col>
+                        <Col span={8} style={{ paddingLeft: 12 }}>
+                            <LabelBorder value={""} />
+                        </Col>
+                    </Row>
+                </>)}
                 </Flex>
             </Flex>
         </Flex>

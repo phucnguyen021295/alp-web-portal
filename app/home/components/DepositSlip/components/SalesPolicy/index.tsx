@@ -210,7 +210,7 @@ const SalesPolicy: React.FC<Props> = (props: Props) => {
             discountedValue: item.TenGiaTriCK,
             accumulated: item.IsLuyKe,
             artifacts: item.IsHienVat,
-            ratio: `${item.TyLe || 0}%`,
+            ratio: item.TyLe || '0',
             money: formatMoney(item.SoTien),
             note: item.GhiChu
         }));
